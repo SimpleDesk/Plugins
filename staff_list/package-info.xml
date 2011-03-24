@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>SimpleDeskTeam:staff_list</id>
+	<name>SimpleDesk Staff List</name>
+	<version>1.0</version>
+	<type>modification</type>
+	<install for="2.0 RC5">
+		<require-file name="SDPluginStaffList.english.php" destination="$languagedir" />
+		<require-dir name="staff_list" destination="$sourcedir/sd_plugins_source" />
+		<require-filr name="SDPluginStaffList.template.php" destination="$themedir/sd_plugins_template" />
+		
+		<redirect url="?action=admin;area=helpdesk_plugins#js_feature_staff_list" />
+	</install>
+
+	<uninstall for="2.0 RC5">
+		<remove-file name="$languagedir/SDPluginStaffList.english.php" />
+		<remove-dir name="$sourcedir/sd_plugins_source/staff_list" />
+		<remove-file name="$themedir/sd_plugins_template/SDPluginStaffList.template.php" />
+	</uninstall>
+</package-info>
