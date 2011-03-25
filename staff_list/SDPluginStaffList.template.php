@@ -58,7 +58,7 @@ function template_shd_staff_list()
 					<tr class="', ($use_bg2 ? 'windowbg2' : 'windowbg'), '">
 						<td width="1%">
 							', (!empty($modSettings['shd_display_avatar']) && empty($options['show_no_avatars']) && !empty($member['avatar']['image'])) ? $member['avatar']['image'] : '', '
-							', $member['extra'],'
+							', !empty($member['extra']) ? $member['extra'] : '','
 						</td>
 						<td><strong>', $member['link'], '</strong></td>
 						<td><span style="color: ', $member['group_color'], '">', $member['group'], '</span></td>

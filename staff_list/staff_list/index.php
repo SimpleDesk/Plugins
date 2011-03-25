@@ -60,10 +60,12 @@ function shdplugin_staff_list()
 		),
 		'includes' => array(
 			'source' => array(
+				'init' => 'SDPluginStaffList.php',
 				'hdadmin' => 'SDPluginStaffList.php',
 				'helpdesk' => 'SDPluginStaffList.php',
 			),
 			'language' => array(
+				'init' => 'SDPluginStaffList',
 				'hdadmin' => 'SDPluginStaffList',
 				'helpdesk' => 'SDPluginStaffList',
 			),

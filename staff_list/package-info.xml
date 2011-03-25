@@ -8,7 +8,7 @@
 	<install for="2.0 RC5">
 		<require-file name="SDPluginStaffList.english.php" destination="$languagedir" />
 		<require-dir name="staff_list" destination="$sourcedir/sd_plugins_source" />
-		<require-filr name="SDPluginStaffList.template.php" destination="$themedir/sd_plugins_template" />
+		<require-file name="SDPluginStaffList.template.php" destination="$themedir/sd_plugins_template" />
 		
 		<redirect url="?action=admin;area=helpdesk_plugins#js_feature_staff_list" />
 	</install>

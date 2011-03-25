@@ -58,11 +58,12 @@ function shd_staff_list_main_menu(&$menu_buttons)
 {
 	global $context, $scripturl, $txt;
 
-	$menu_buttons['helpdesk']['sub_buttons']['staff_list'] = array(
-		'title' => $txt['shdp_staff_list_title'],
-		'href' => $scripturl . '?action=helpdesk;sa=stafflist',
-		'show' => SMF == 'SSI' ? false : shd_allowed_to('shd_staff_list_view')
-	);
+	if(empty($modSettings['shd_hidemenu']) && isset($menu_buttons['helpdesk']))
+		$menu_buttons['helpdesk']['sub_buttons']['staff_list'] = array(
+			'title' => $txt['shdp_staff_list_title'],
+			'href' => $scripturl . '?action=helpdesk;sa=stafflist',
+			'show' => SMF == 'SSI' ? false : shd_allowed_to('shd_staff_list_view')
+		);
 }
 
 // This is where the magic happens!
