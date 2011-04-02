@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>SimpleDeskTeam:reporthelpdesk</id>
+	<name>SimpleDesk: Report to Helpdesk</name>
+	<version>1.0</version>
+	<type>modification</type>
+	<install for="2.0 RC5">
+		<require-file name="SDPluginReportToHelpdesk.english.php" destination="$languagedir" />
+		<require-dir name="report_to_helpdesk" destination="$sourcedir/sd_plugins_source" />
+		
+		<redirect url="?action=admin;area=helpdesk_plugins#js_feature_report_to_helpdesk" />
+	</install>
+
+	<uninstall for="2.0 RC5">
+		<remove-file name="$languagedir/SDPluginReportToHelpdesk.english.php" />
+		<remove-dir name="$sourcedir/sd_plugins_source/report_to_helpdesk" />
+	</uninstall>
+</package-info>
