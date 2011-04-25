@@ -33,13 +33,17 @@
  *	Before attempting to execute, this file attempts to load SSI.php to enable access to the database functions.
 */
 
-$context = array();
 if (file_exists(dirname(__FILE__) . '/SSI.php') && !defined('SMF'))
 	require_once(dirname(__FILE__) . '/SSI.php');
 elseif (!defined('SMF')) // If we are outside SMF and can't find SSI.php, then throw an error
 	die('<b>Error:</b> Cannot install - please verify you put this file in the same place as SMF\'s SSI.php.');
-elseif (!defined('TICKET_STATUS_NEW')) // SD isn't loaded and active
+
+if (!defined('TICKET_STATUS_NEW')) // SD isn't loaded and active
 	die('<b>SimpleDesk needs to be installed and active before running this script.</b>');
+elseif (!in_array('install_testdata', $context['shd_plugins']))
+	die('<b>This plugin needs to be activated in the admin panel.</b>');
+else
+	isAllowedTo('admin_forum');
 
 $db_show_debug = false;
 shd_load_language('SDPluginInstallTestdata');
