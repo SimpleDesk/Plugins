@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>SimpleDeskTeam:installtestdata</id>
+	<name>SimpleDesk: Install Test-Data</name>
+	<version>1.0</version>
+	<type>modification</type>
+	<install for="2.0 RC5">
+		<require-dir name="install_testdata" destination="$sourcedir/sd_plugins_source" />
+		<require-file name="install-testdata.php" destination="$boarddir" />
+		<require-file name="SDPluginInstallTestdata.english.php" destination="$languagedir" />
+		<require-file name="SDPluginInstallTestdata.english-utf8.php" destination="$languagedir" />
+		<require-file name="SDPluginInstallTestdata.english_british.php" destination="$languagedir" />
+		<require-file name="SDPluginInstallTestdata.english_british-utf8.php" destination="$languagedir" />
+		
+		<redirect url="?action=admin;area=helpdesk_plugins#js_feature_install_testdata" />
+	</install>
+
+	<uninstall for="2.0 RC5">
+		<remove-dir name="$sourcedir/sd_plugins_source/install_testdata" />
+		<remove-file name="$boarddir/install-testdata.php" />
+		<remove-file name="$languagedir/SDPluginInstallTestdata.english.php" />
+		<remove-file name="$languagedir/SDPluginInstallTestdata.english-utf8.php" />
+		<remove-file name="$languagedir/SDPluginInstallTestdata.english_british.php" />
+		<remove-file name="$languagedir/SDPluginInstallTestdata.english_british-utf8.php" />
+	</uninstall>
+</package-info>
