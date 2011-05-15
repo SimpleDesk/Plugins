@@ -13,13 +13,13 @@
 # Any questions, please contact SimpleDesk.net            #
 #                                                         #
 ###########################################################
-# SimpleDesk Version: 1.0 Felidae                         #
-# File Info: index.php / 1.0 Felidae                      #
+# SimpleDesk Version: 2.0 Anatidae                        #
+# File Info: index.php / 2.0 Anatidae                     #
 ###########################################################
 
 /**
  *	@package plugin-installtestdata
- *	@since 1.1
+ *	@since 2.0
 */
 
 if (!defined('SHD_VERSION'))
@@ -55,7 +55,7 @@ function shdplugin_install_testdata()
 			'website' => 'http://www.simpledesk.net/',
 			'version' => '1.0',
 			'compatibility' => array(
-				'SimpleDesk 1.0 Felidae', // should tie up with the SHD_VERSION constants
+				'SimpleDesk 2.0 Anatidae', // should tie up with the SHD_VERSION constants
 			),
 			'acp_url' => $GLOBALS['boardurl'] . '/install-testdata.php',
 		),

@@ -13,15 +13,15 @@
 #   Any questions, please contact SimpleDesk.net              #
 #                                                             #
 ###############################################################
-# SimpleDesk Version: 1.0 Felidae                             #
-# File Info: SimpleDesk-Notifications.php / 1.0 Felidae       #
+# SimpleDesk Version: 2.0 Anatidae                            #
+# File Info: SDPluginStaffList.php / 2.0 Anatidae             #
 ###############################################################
 
 /**
  *	This file handles sending notifications to users when things happen in the helpdesk.
  *
- *	@package source
- *	@since 1.1
+ *	@package plugin-stafflist
+ *	@since 2.0
  */
 
 if (!defined('SMF'))

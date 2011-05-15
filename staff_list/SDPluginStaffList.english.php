@@ -13,10 +13,10 @@
 #   Any questions, please contact SimpleDesk.net              #
 #                                                             #
 ###############################################################
-# SimpleDesk Version: 1.0 Felidae                             #
-# File Info: SimpleDesk.english.php / 1.0 Felidae             #
+# SimpleDesk Version: 2.0 Anatidae                            #
+# File Info: SDPluginStaffList.english.php / 2.0 Anatidae     #
 ###############################################################
-// Version: 1.0 Felidae; SimpleDesk staff list plugin
+// Version: 2.0 Anatidae; SimpleDesk staff list plugin
 
 // Important! Before editing these language files please read the text at the top of index.english.php.
 

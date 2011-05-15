@@ -1,22 +1,22 @@
 <?php
-###############################################################
-#         Simple Desk Project - www.simpledesk.net            #
-###############################################################
-#       An advanced help desk modifcation built on SMF        #
-###############################################################
-#                                                             #
-#         * Copyright 2010 - SimpleDesk.net                   #
-#                                                             #
-#   This file and its contents are subject to the license     #
-#   included with this distribution, license.txt, which       #
-#   states that this software is New BSD Licensed.            #
-#   Any questions, please contact SimpleDesk.net              #
-#                                                             #
-###############################################################
-# SimpleDesk Version: 1.0 Felidae                             #
-# File Info: SimpleDesk.english.php / 1.0 Felidae             #
-###############################################################
-// Version: 1.0 Felidae; SimpleDesk installation test-data
+##############################################################################
+#                 Simple Desk Project - www.simpledesk.net                   #
+##############################################################################
+#               An advanced help desk modifcation built on SMF               #
+##############################################################################
+#                                                                            #
+#         * Copyright 2010 - SimpleDesk.net                                  #
+#                                                                            #
+#   This file and its contents are subject to the license                    #
+#   included with this distribution, license.txt, which                      #
+#   states that this software is New BSD Licensed.                           #
+#   Any questions, please contact SimpleDesk.net                             #
+#                                                                            #
+##############################################################################
+# SimpleDesk Version: 2.0 Anatidae                                           #
+# File Info: SDPluginInstallTestdata.english.php / 2.0 Anatidae              #
+##############################################################################
+// Version: 2.0 Anatidae; SimpleDesk installation test-data
 
 // Important! Before editing these language files please read the text at the top of index.english.php.
 

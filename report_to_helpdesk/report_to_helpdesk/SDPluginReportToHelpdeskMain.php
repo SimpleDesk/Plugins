@@ -13,15 +13,15 @@
 #   Any questions, please contact SimpleDesk.net              #
 #                                                             #
 ###############################################################
-# SimpleDesk Version: 1.0 Felidae                             #
-# File Info: SimpleDesk-Notifications.php / 1.0 Felidae       #
+# SimpleDesk Version: 2.0 Anatidae                            #
+# File Info: SDPluginReportToHelpdeskMain.php / 2.0 Anatidae  #
 ###############################################################
 
 /**
- *	This file handles sending notifications to users when things happen in the helpdesk.
+ *	This file handles the main work of handling reporting to the helpdesk instead of the original functions.
  *
  *	@package source
- *	@since 1.1
+ *	@since 2.0
  */
 
 if (!defined('SMF'))

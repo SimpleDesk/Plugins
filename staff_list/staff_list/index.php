@@ -13,12 +13,12 @@
 # Any questions, please contact SimpleDesk.net            #
 #                                                         #
 ###########################################################
-# SimpleDesk Version: 1.0 Felidae                         #
-# File Info: index.php / 1.0 Felidae                      #
+# SimpleDesk Version: 2.0 Anatidae                        #
+# File Info: index.php / 2.0 Anatidae                     #
 ###########################################################
 
 /**
- *	@package plugin-emailnotifications
+ *	@package plugin-stafflist
  *	@since 1.1
 */
 
@@ -55,7 +55,7 @@ function shdplugin_staff_list()
 			'website' => 'http://www.simpledesk.net/',
 			'version' => '1.0',
 			'compatibility' => array(
-				'SimpleDesk 1.0 Felidae', // should tie up with the SHD_VERSION constants
+				'SimpleDesk 2.0 Anatidae', // should tie up with the SHD_VERSION constants
 			),
 		),
 		'includes' => array(
