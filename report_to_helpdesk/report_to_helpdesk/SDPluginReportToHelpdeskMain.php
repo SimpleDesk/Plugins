@@ -208,6 +208,7 @@ function shd_report_to_helpdesk2()
 		'status' => TICKET_STATUS_NEW,
 		'urgency' => TICKET_URGENCY_LOW,
 		'assigned' => 0,
+		'dept' => $modSettings['report_posts_dept'],
 	);
 	$posterOptions = array(
 		'id' => $user_info['id'],
@@ -229,6 +230,57 @@ function shd_report_to_helpdesk2()
 
 	// Back to the post we reported!
 	redirectexit('reportsent;topic=' . $topic . '.msg' . $_POST['msg'] . '#msg' . $_POST['msg']);
+}
+
+function shd_report_to_helpdesk_options($return_config)
+{
+	global $context, $modSettings, $txt, $sourcedir, $smcFunc;
+
+	$dept_list = array(
+		0 => $txt['report_normally'],
+	);
+	$query = $smcFunc['db_query']('', '
+		SELECT id_dept, dept_name
+		FROM {db_prefix}helpdesk_depts
+		ORDER BY dept_order');
+	while ($row = $smcFunc['db_fetch_assoc']($query))
+		$dept_list[$row['id_dept']] = $row['dept_name'];
+	$smcFunc['db_free_result']($query);
+
+	$config_vars = array(
+		array('select', 'report_posts_dept', $dept_list),
+		'',
+		//array('select', 'report_pms_dept', $dept_list),
+	);
+	$context['settings_title'] = $txt['shdp_report_to_helpdesk'];
+	$context['settings_icon'] = 'warning.png';
+
+	return $config_vars;
+}
+
+function shd_report_to_helpdesk_adminmenu(&$admin_areas)
+{
+	global $context, $modSettings, $txt;
+
+	// Enabled?
+	if (!in_array('report_to_helpdesk', $context['shd_plugins']))
+		return;
+
+	$admin_areas['helpdesk_info']['areas']['helpdesk_options']['subsections']['report_to_helpdesk'] = array($txt['shdp_report_to_helpdesk']);
+}
+
+function shd_report_to_helpdesk_hdadminopts()
+{
+	global $context, $modSettings, $txt;
+
+	// Enabled?
+	if (!in_array('report_to_helpdesk', $context['shd_plugins']))
+		return;
+
+	$context[$context['admin_menu_name']]['tab_data']['tabs']['report_to_helpdesk'] = array(
+		'description' => $txt['shdp_report_to_helpdesk_desc'],
+		'function' => 'shd_report_to_helpdesk_options',
+	);
 }
 
 ?>

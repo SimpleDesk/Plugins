@@ -30,12 +30,13 @@ if (!defined('SMF'))
 // Deal with the action
 function shd_report_to_helpdesk_actions(&$actionArray)
 {
-	global $context;
+	global $context, $modSettings;
 
 	if (!in_array('report_to_helpdesk', $context['shd_plugins']))
 		return;
 
-	$actionArray['reporttm'] = array('sd_plugins_source/report_to_helpdesk/SDPluginReportToHelpdeskMain.php', 'shd_report_to_helpdesk');
+	if (!empty($modSettings['report_posts_dept']))
+		$actionArray['reporttm'] = array('sd_plugins_source/report_to_helpdesk/SDPluginReportToHelpdeskMain.php', 'shd_report_to_helpdesk');
 }
 
 ?>

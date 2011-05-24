@@ -61,6 +61,7 @@ function shdplugin_report_to_helpdesk()
 		'includes' => array(
 			'source' => array(
 				'init' => 'SDPluginReportToHelpdesk.php',
+				'hdadmin' => 'SDPluginReportToHelpdeskMain.php',
 			),
 			'language' => array(
 				'hdadmin' => 'SDPluginReportToHelpdesk',
@@ -68,6 +69,8 @@ function shdplugin_report_to_helpdesk()
 		),
 		'hooks' => array( // what functions to call when
 			'actions' => 'shd_report_to_helpdesk_actions',
+			'hdadminopts' => 'shd_report_to_helpdesk_hdadminopts',
+			'adminmenu' => 'shd_report_to_helpdesk_adminmenu',
 		),
 	);
 }

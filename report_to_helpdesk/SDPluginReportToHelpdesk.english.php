@@ -27,4 +27,8 @@ $txt['reported_post'] = 'Reported post';
 $txt['reported_body'] = 'The following post, "{subject}" by {author}, was reported by {reporter}' . "\n" . '---------------------------------------' . "\n" . '{body}' . "\n" . '---------------------------------------' . "\n\n" . 'The reason given was: ' . "\n" . '{comment}';
 
 $txt['report_to_mod_func'] = 'Use this function to inform the moderators and administrators of an abusive or wrongly posted message.';
+
+$txt['report_normally'] = 'Do not direct reports to the helpdesk';
+$txt['report_posts_dept'] = 'Where should reported posts end up?';
+$txt['report_pms_dept'] = 'Where should reported private messages end up?';
 ?>
