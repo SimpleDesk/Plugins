@@ -4,7 +4,7 @@
 	<id>SimpleDeskTeam:staff_list</id>
 	<name>SimpleDesk Staff List</name>
 	<version>1.0</version>
-	<type>modification</type>
+	<type>sdplugin</type>
 	<install for="2.0 RC5">
 		<require-file name="SDPluginStaffList.english.php" destination="$languagedir" />
 		<require-dir name="staff_list" destination="$sourcedir/sd_plugins_source" />

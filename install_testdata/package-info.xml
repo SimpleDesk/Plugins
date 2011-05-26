@@ -4,7 +4,7 @@
 	<id>SimpleDeskTeam:installtestdata</id>
 	<name>SimpleDesk: Install Test-Data</name>
 	<version>1.0</version>
-	<type>modification</type>
+	<type>sdplugin</type>
 	<install for="2.0 RC5">
 		<require-dir name="install_testdata" destination="$sourcedir/sd_plugins_source" />
 		<require-file name="install-testdata.php" destination="$boarddir" />

@@ -4,7 +4,7 @@
 	<id>SimpleDeskTeam:reporthelpdesk</id>
 	<name>SimpleDesk: Report to Helpdesk</name>
 	<version>1.0</version>
-	<type>modification</type>
+	<type>sdplugin</type>
 	<install for="2.0 RC5">
 		<require-file name="SDPluginReportToHelpdesk.english.php" destination="$languagedir" />
 		<require-dir name="report_to_helpdesk" destination="$sourcedir/sd_plugins_source" />
