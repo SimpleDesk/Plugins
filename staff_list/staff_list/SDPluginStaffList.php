@@ -58,7 +58,7 @@ function shd_staff_list_main_menu(&$menu_buttons)
 {
 	global $context, $scripturl, $txt;
 
-	if(empty($modSettings['shd_hidemenu']) && isset($menu_buttons['helpdesk']))
+	if (empty($modSettings['shd_hidemenu']) && isset($menu_buttons['helpdesk']))
 		$menu_buttons['helpdesk']['sub_buttons']['staff_list'] = array(
 			'title' => $txt['shdp_staff_list_title'],
 			'href' => $scripturl . '?action=helpdesk;sa=stafflist',
@@ -83,13 +83,27 @@ function shd_staff_list()
 	foreach($get_members AS $member)
 	{
 		loadMemberContext($member);
+		if (!empty($modSettings['shd_helpdesk_only']) && !empty($modSettings['shd_disable_pm']))
+		{
+			if (shd_allowed_to('shd_view_profile_any') || ($member == $context['user']['id'] && shd_allowed_to('shd_view_profile_own')))
+			{
+				$memberContext[$member]['online']['href'] = $scripturl . '?action=profile;u=' . $member;
+				$memberContext[$member]['online']['link'] = '<a href="' . $memberContext[$member]['online']['href'] . '">' . $memberContext[$member]['online']['text'] . '</a>';
+			}
+			else
+			{
+				$memberContext[$member]['online']['href'] = $scripturl . '?action=helpdesk;sa=main';
+				$memberContext[$member]['online']['link'] = $memberContext[$member]['online']['text'];
+			}
+		}
+		$memberContext[$member]['view_hd_profile'] = shd_allowed_to('shd_view_profile_any') || ($member == $context['user']['id'] && shd_allowed_to('shd_view_profile_own'));
 		$context['staff_members'][$member] = &$memberContext[$member];
-		
+
 		// !!! Cookie Control
-		if($context['staff_members'][$member]['name'] == base64_decode('Y29va2llbW9uc3Rlcg=='))
+		if ($context['staff_members'][$member]['name'] == base64_decode('Y29va2llbW9uc3Rlcg=='))
 			$context['staff_members'][$member]['extra'] = '<img src="' . $settings['default_images_url'] . '/simpledesk/cf/cookie.png" alt="" class="floatright" style="' . ((!empty($modSettings['shd_display_avatar']) && empty($options['show_no_avatars']) && !empty($context['staff_members'][$member]['avatar']['image'])) ? 'position: relative; bottom: 12px; left: 5px;' : ''). '" title="Yummy!" />';
 	}
-	
+
 	$context['page_title'] = $txt['shd_helpdesk'];
 }
 
@@ -99,18 +113,16 @@ function shd_staff_list_permissions()
 	global $context, $txt, $modSettings;
 
 	$context['shd_permissions']['permission_list']['shd_staff_list_view'] = array(false, 'general', 'staff.png');
-
 }
 
 // Add the permission to the role templates, too
 function shd_staff_list_roles()
 {
 	global $context, $txt, $modSettings;
-	
+
 	$context['shd_permissions']['roles'][ROLE_USER]['permissions']['shd_staff_list_view'] = ROLEPERM_ALLOW;
 	$context['shd_permissions']['roles'][ROLE_STAFF]['permissions']['shd_staff_list_view'] = ROLEPERM_ALLOW;
 	$context['shd_permissions']['roles'][ROLE_ADMIN]['permissions']['shd_staff_list_view'] = ROLEPERM_ALLOW;	
-
 }
 
 ?>

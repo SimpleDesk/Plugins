@@ -68,14 +68,17 @@ function template_shd_staff_list()
 						</td>						
 						<td>', $member['last_login'], '</td>';
 				
-				if(($member['id'] == $user_info['id'] && shd_allowed_to('shd_view_profile_own')) || shd_allowed_to('shd_view_profile_any'))
-				echo'
+				if ($member['view_hd_profile'])
+					echo '
 						<td>
 							<a href="', $member['href'], ';area=helpdesk" class="smalltext floatright">', $txt['shdp_staff_list_helpdesk_profile'], '
 							<img src="', $settings['default_images_url'], '/simpledesk/go_to_helpdesk.png" class="shd_icon" alt="" /></a>
 						</td>';
-						
-				echo'
+				else
+					echo '
+						<td></td>';
+
+				echo '
 					</tr>';
 
 				$use_bg2 = !$use_bg2;
