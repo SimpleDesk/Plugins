@@ -69,7 +69,7 @@ function shd_staff_list_main_menu(&$menu_buttons)
 // This is where the magic happens!
 function shd_staff_list()
 {
-	global $context, $txt, $modSettings, $scripturl, $sourcedir, $memberContext, $settings, $options;
+	global $context, $txt, $modSettings, $smcFunc, $scripturl, $sourcedir, $memberContext, $settings, $options;
 	
 	shd_is_allowed_to('shd_staff_list_view');
 
@@ -77,6 +77,25 @@ function shd_staff_list()
 	$context['sub_template'] = 'shd_staff_list';
 	
 	$get_members = shd_members_allowed_to('shd_staff');
+	// Are site admins eligible for receiving tickets?
+	if (!empty($modSettings['shd_admins_not_assignable']))
+	{
+		$query = $smcFunc['db_query']('', '
+			SELECT id_member
+			FROM {db_prefix}members
+			WHERE id_group = 1
+				OR FIND_IN_SET(1, additional_groups)',
+			array()
+		);
+
+		$admins = array();
+		while ($row = $smcFunc['db_fetch_row']($query))
+			$admins[] = $row[0];
+
+		$smcFunc['db_free_result']($query);
+		$get_members = array_diff($get_members, $admins);
+	}
+
 	$context['staff_members'] = array();
 	loadMemberData($get_members);
 	
