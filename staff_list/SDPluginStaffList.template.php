@@ -56,7 +56,7 @@ function template_shd_staff_list()
 			{
 				echo '
 					<tr class="', ($use_bg2 ? 'windowbg2' : 'windowbg'), '">
-						<td width="1%">
+						<td width="1%" class="centertext">
 							', (!empty($modSettings['shd_display_avatar']) && empty($options['show_no_avatars']) && !empty($member['avatar']['image'])) ? $member['avatar']['image'] : '', '
 							', !empty($member['extra']) ? $member['extra'] : '','
 						</td>
