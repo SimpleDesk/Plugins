@@ -5,7 +5,7 @@
 	<name>SimpleDesk Staff List</name>
 	<version>1.0</version>
 	<type>sdplugin</type>
-	<install for="2.0 RC5">
+	<install for="2.0">
 		<require-file name="SDPluginStaffList.english.php" destination="$languagedir" />
 		<require-dir name="staff_list" destination="$sourcedir/sd_plugins_source" />
 		<require-file name="SDPluginStaffList.template.php" destination="$themedir/sd_plugins_template" />
@@ -13,7 +13,7 @@
 		<redirect url="?action=admin;area=helpdesk_plugins#js_feature_staff_list" />
 	</install>
 
-	<uninstall for="2.0 RC5">
+	<uninstall for="2.0">
 		<remove-file name="$languagedir/SDPluginStaffList.english.php" />
 		<remove-dir name="$sourcedir/sd_plugins_source/staff_list" />
 		<remove-file name="$themedir/sd_plugins_template/SDPluginStaffList.template.php" />
