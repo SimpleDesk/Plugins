@@ -23,7 +23,7 @@
 $txt['shdp_tally'] = 'Tally Custom Fields';
 $txt['shdp_tally_desc'] = 'This plugin can automatically tally up the totals of custom fields for you.';
 
-$txt['shdp_tally_totals'] = 'Totaled Values';
+$txt['shdp_tally_totals'] = 'Totalled Values';
 
 $txt['shdp_tally_include_ticket'] = 'When totalling the values, include the value for the ticket (instead of only from replies)';
 $txt['shdp_tally_field_list'] = 'Which custom fields does this apply to?';

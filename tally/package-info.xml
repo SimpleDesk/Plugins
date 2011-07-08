@@ -7,6 +7,9 @@
 	<type>sdplugin</type>
 	<install for="2.0">
 		<require-file name="SDPluginTally.english.php" destination="$languagedir" />
+		<require-file name="SDPluginTally.english-utf8.php" destination="$languagedir" />
+		<require-file name="SDPluginTally.english_british.php" destination="$languagedir" />
+		<require-file name="SDPluginTally.english_british-utf8.php" destination="$languagedir" />
 		<require-dir name="tally" destination="$sourcedir/sd_plugins_source" />
 		
 		<redirect url="?action=admin;area=helpdesk_plugins#js_feature_tally" />
@@ -14,6 +17,9 @@
 
 	<uninstall for="2.0">
 		<remove-file name="$languagedir/SDPluginTally.english.php" />
+		<remove-file name="$languagedir/SDPluginTally-utf8.english.php" />
+		<remove-file name="$languagedir/SDPluginTally_british.english.php" />
+		<remove-file name="$languagedir/SDPluginTally_british-utf8.english.php" />
 		<remove-dir name="$sourcedir/sd_plugins_source/tally" />
 	</uninstall>
 </package-info>
