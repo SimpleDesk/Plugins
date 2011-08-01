@@ -33,7 +33,7 @@ function shdp_tidy_child_boards_process(&$boardIndexOptions, &$categories)
 {
 	global $settings, $modSettings, $context, $txt;
 
-	if (empty($modSettings['tidy_child_boards']) || $modSettings['tidy_child_boards'] < 2 || $modSettings['tidy_child_boards'] > 4)
+	if (!in_array('tally', $context['shd_plugins']) || empty($modSettings['tidy_child_boards']) || $modSettings['tidy_child_boards'] < 2 || $modSettings['tidy_child_boards'] > 4)
 		return;
 
 	if (file_exists($settings['theme_dir'] . '/images/on.png'))
