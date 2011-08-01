@@ -41,4 +41,17 @@ $txt['shdp_install_testdata_nonstaff'] = 'User to use as "not staff" in the code
 $txt['shdp_install_testdata_dept'] = 'Department the tickets should be added to';
 $txt['shdp_install_testdata_create'] = 'Create!';
 $txt['shdp_install_testdata_added'] = 'Ticket %1$d added with %2$d replies!';
+
+$txt['shdp_install_testdata_del_title'] = 'Clean out the existing tables';
+$txt['shdp_install_testdata_warning'] = 'These options are primarily for testing purposes and are not recommended for general use. They are NOT RECOVERABLE: if you have any doubts, take a backup first.';
+$txt['shdp_install_testdata_nothingselected'] = 'No options were selected, nothing can be removed for that reason.';
+
+$txt['shdp_install_testdata_purge_actionlog'] = 'Remove all existing action log entries';
+$txt['shdp_install_testdata_purge_roles'] = 'Remove all existing roles';
+$txt['shdp_install_testdata_purge_relationships'] = 'Remove all existing relationships between tickets';
+
+$txt['shdp_install_testdata_completed_purge'] = 'completed';
+
+$txt['shdp_install_testdata_clear_sure'] = 'Did I mention that this data was NOT RECOVERABLE? If you press OK, the data will be deleted from your helpdesk, permanently and irretrievably without a backup. Are you SURE you want to proceed?';
+
 ?>

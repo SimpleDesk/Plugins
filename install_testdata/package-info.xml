@@ -2,7 +2,7 @@
 <!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
 	<id>SimpleDeskTeam:installtestdata</id>
-	<name>SimpleDesk: Install Test-Data</name>
+	<name>Install Test-Data</name>
 	<version>1.0</version>
 	<type>sdplugin</type>
 	<install for="2.0">
