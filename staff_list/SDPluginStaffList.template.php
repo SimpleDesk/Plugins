@@ -17,29 +17,55 @@ function template_shd_staff_list()
 				<div class="cat_bar grid_header">
 					<h3 class="catbg">
 						<img src="', $settings['default_images_url'], '/simpledesk/staff.png" class="shd_icon_minihead" alt="" />
-						',$txt['shdp_staff_list_title'],'
+						', $txt['shdp_staff_list_title'], !empty($context['shd_dept_name']) ? ' - ' . $context['shd_dept_name'] : '', '
 					</h3>
 				</div>
-				<div class="description shd_no_margin shd_hide_bottom_border">
-					',$txt['shdp_staff_list_welcome'],'
+				<div class="description shd_no_margin shd_hide_bottom_border">';
+
+	// Now to do the department list if that's what we're doing.
+	if (!empty($context['shd_department_list']))
+	{
+		echo '
+					<form action="', $scripturl, '?action=helpdesk;sa=stafflist" method="post">
+						<input type="submit" class="button_submit floatright" value="', $txt['shd_go'], '" />
+						<select class="floatright" name="dept">';
+
+		if (!empty($context['shd_department']))
+			echo '
+							<option value="', $context['shd_department'], '">', $txt['shdp_staff_list_another_dept'], '</option>';
+		else
+			echo '
+							<option value="0">', $txt['shdp_staff_list_sel_dept'], '</option>';
+		
+		foreach ($context['shd_department_list'] as $id => $dept)
+			echo '
+							<option value="', $id, '">', $dept, '</option>';
+
+		echo '
+						</select>
+					</form>';
+	}
+
+	echo '
+					', $txt['shdp_staff_list_welcome'], '
 				</div>
 				<table class="shd_ticketlist" cellspacing="0" width="100%">
 					<tr class="titlebg">
 						<td colspan="2">
 							<img src="', $settings['default_images_url'], '/simpledesk/user.png" class="shd_smallicon" alt="" />
-							',$txt['shdp_staff_list_member'],'
+							', $txt['shdp_staff_list_member'], '
 						</td>
 						<td>
 							<img src="', $settings['default_images_url'], '/simpledesk/position.png" class="shd_smallicon" alt="" />
-							',$txt['shdp_staff_list_position'],'
+							', $txt['shdp_staff_list_position'], '
 						</td>
 						<td>
 							<img src="', $settings['default_images_url'], '/simpledesk/details.png" class="shd_smallicon" alt="" />
-							',$txt['shdp_staff_list_online_status'],'
+							', $txt['shdp_staff_list_online_status'], '
 						</td>							
 						<td>
 							<img src="', $settings['default_images_url'], '/simpledesk/time.png" class="shd_smallicon" alt="" />
-							',$txt['shdp_staff_list_last_online'],'
+							', $txt['shdp_staff_list_last_online'], '
 						</td>
 						<td>&nbsp;</td>
 					</tr>';
@@ -47,7 +73,7 @@ function template_shd_staff_list()
 		if (empty($context['staff_members']))
 			echo '
 					<tr class="windowbg2">
-						<td colspan="6" class="shd_noticket">',$txt['shdp_staff_list_empty'],'</td>
+						<td colspan="6" class="shd_noticket">', $txt['shdp_staff_list_empty'], '</td>
 					</tr>';
 		else
 		{

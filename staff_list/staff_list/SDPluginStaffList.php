@@ -37,11 +37,11 @@ function shd_staff_list_init(&$subactions)
 		return;
 
 	// Add the staff list button to the helpdesk navigation
-	$context['can_view_staff_list'] = shd_allowed_to('shd_staff_list_view');
+	$context['can_view_staff_list'] = shd_allowed_to('shd_staff_list_view', 0); // At least one department. Doesn't really matter too much which for this.
 	$context['navigation']['stafflist'] = array(
 		'text' => 'shdp_staff_list_title',
 		'lang' => true,
-		'url' => $scripturl . '?action=helpdesk;sa=stafflist',
+		'url' => $scripturl . '?action=helpdesk;sa=stafflist' . $context['shd_dept_link'],
 		'test' => 'can_view_staff_list'
 	);
 	
@@ -58,11 +58,11 @@ function shd_staff_list_main_menu(&$menu_buttons)
 {
 	global $context, $scripturl, $txt;
 
-	if (empty($modSettings['shd_hidemenu']) && isset($menu_buttons['helpdesk']))
+	if (empty($modSettings['shd_hidemenuitem']) && isset($menu_buttons['helpdesk']))
 		$menu_buttons['helpdesk']['sub_buttons']['staff_list'] = array(
 			'title' => $txt['shdp_staff_list_title'],
 			'href' => $scripturl . '?action=helpdesk;sa=stafflist',
-			'show' => SMF == 'SSI' ? false : shd_allowed_to('shd_staff_list_view')
+			'show' => SMF == 'SSI' ? false : shd_allowed_to('shd_staff_list_view', 0)
 		);
 }
 
@@ -71,12 +71,12 @@ function shd_staff_list()
 {
 	global $context, $txt, $modSettings, $smcFunc, $scripturl, $sourcedir, $memberContext, $settings, $options;
 	
-	shd_is_allowed_to('shd_staff_list_view');
+	shd_is_allowed_to('shd_staff_list_view', $context['shd_department']);
 
 	loadTemplate('sd_plugins_template/SDPluginStaffList');
 	$context['sub_template'] = 'shd_staff_list';
 	
-	$get_members = shd_members_allowed_to('shd_staff');
+	$get_members = shd_members_allowed_to('shd_staff', $context['shd_department']);
 	// Are site admins eligible for receiving tickets?
 	if (!empty($modSettings['shd_admins_not_assignable']))
 	{
@@ -98,13 +98,17 @@ function shd_staff_list()
 
 	$context['staff_members'] = array();
 	loadMemberData($get_members);
+
+	// Faster than evaluating it every member! Note that we explicitly don't want it on a given department, as the profile options are dept-agnostic.
+	$profile_view_any = shd_allowed_to('shd_view_profile_any', 0);
+	$profile_view_own = shd_allowed_to('shd_view_profile_own', 0);
 	
-	foreach($get_members AS $member)
+	foreach ($get_members AS $member)
 	{
 		loadMemberContext($member);
 		if (!empty($modSettings['shd_helpdesk_only']) && !empty($modSettings['shd_disable_pm']))
 		{
-			if (shd_allowed_to('shd_view_profile_any') || ($member == $context['user']['id'] && shd_allowed_to('shd_view_profile_own')))
+			if ($profile_view_any || ($member == $context['user']['id'] && $profile_view_own))
 			{
 				$memberContext[$member]['online']['href'] = $scripturl . '?action=profile;u=' . $member;
 				$memberContext[$member]['online']['link'] = '<a href="' . $memberContext[$member]['online']['href'] . '">' . $memberContext[$member]['online']['text'] . '</a>';
@@ -115,7 +119,7 @@ function shd_staff_list()
 				$memberContext[$member]['online']['link'] = $memberContext[$member]['online']['text'];
 			}
 		}
-		$memberContext[$member]['view_hd_profile'] = shd_allowed_to('shd_view_profile_any') || ($member == $context['user']['id'] && shd_allowed_to('shd_view_profile_own'));
+		$memberContext[$member]['view_hd_profile'] = $profile_view_any || ($member == $context['user']['id'] && $profile_view_own);
 		$context['staff_members'][$member] = &$memberContext[$member];
 
 		// !!! Cookie Control
@@ -124,12 +128,32 @@ function shd_staff_list()
 	}
 
 	$context['page_title'] = $txt['shd_helpdesk'];
+
+	// Lastly, fetch all the other departments if that's what we're doing.
+	if (!empty($context['shd_multi_dept']))
+	{
+		$context['shd_department_list'] = array();
+		$dept_list = shd_allowed_to('access_helpdesk', false);
+
+		$query = $smcFunc['db_query']('', '
+			SELECT hdd.id_dept, hdd.dept_name
+			FROM {db_prefix}helpdesk_depts AS hdd
+			WHERE hdd.id_dept IN ({array_int:depts})
+			ORDER BY hdd.dept_order',
+			array(
+				'depts' => $dept_list,
+			)
+		);
+		while ($row = $smcFunc['db_fetch_assoc']($query))
+			$context['shd_department_list'][$row['id_dept']] = $row['dept_name'];
+		$smcFunc['db_free_result']($query);
+	}
 }
 
 // Add our custom permission to see the staff list
 function shd_staff_list_permissions()
 {
-	global $context, $txt, $modSettings;
+	global $context;
 
 	$context['shd_permissions']['permission_list']['shd_staff_list_view'] = array(false, 'general', 'staff.png');
 }
@@ -137,7 +161,7 @@ function shd_staff_list_permissions()
 // Add the permission to the role templates, too
 function shd_staff_list_roles()
 {
-	global $context, $txt, $modSettings;
+	global $context;
 
 	$context['shd_permissions']['roles'][ROLE_USER]['permissions']['shd_staff_list_view'] = ROLEPERM_ALLOW;
 	$context['shd_permissions']['roles'][ROLE_STAFF]['permissions']['shd_staff_list_view'] = ROLEPERM_ALLOW;

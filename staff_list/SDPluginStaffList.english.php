@@ -35,4 +35,6 @@ $txt['shdp_staff_list_helpdesk_profile'] = 'View helpdesk profile';
 
 $txt['permissionname_shd_staff_list_view'] = 'View staff list';
 
+$txt['shdp_staff_list_sel_dept'] = 'Select a department...';
+$txt['shdp_staff_list_another_dept'] = 'View staff in another department...';
 ?>
