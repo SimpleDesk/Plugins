@@ -158,7 +158,8 @@ function template_shdp_tally()
 						</div>
 						<span class="botslice"><span></span></span>
 					</div>
-				</div>';
+				</div>
+				<br />';
 }
 
 // Admin settings
