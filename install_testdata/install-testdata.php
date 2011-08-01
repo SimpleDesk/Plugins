@@ -62,7 +62,7 @@ $lorem = new LoremIpsumGenerator;
 if (SMF != 'SSI')
 	fatal_error('This script can only be run via direct link, it cannot be embedded into the forum or helpdesk itself.', false);
 
-$context['shd_delete_rules'] = array('actionlog', 'relationships', 'roles');
+$context['shd_delete_rules'] = array('actionlog', 'cf_values', 'cf', 'relationships', 'roles');
 $context['page_title_html_safe'] = $txt['shdp_install_testdata_title'];
 template_header();
 
@@ -397,6 +397,22 @@ elseif (!empty($_REQUEST['go']) && $_REQUEST['go'] == 'yeah-for-delete')
 	{
 		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_log_action');
 		echo $txt['shdp_install_testdata_purge_actionlog'], ' - <strong>', $txt['shdp_install_testdata_completed_purge'], '</strong><br />';
+		flush();
+	}
+
+	if (!empty($_POST['purge_cf_values']))
+	{
+		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_custom_fields_values');
+		echo $txt['shdp_install_testdata_purge_cf_values'], ' - <strong>', $txt['shdp_install_testdata_completed_purge'], '</strong><br />';
+		flush();
+	}
+
+	if (!empty($_POST['purge_cf']))
+	{
+		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_custom_fields_values');
+		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_custom_fields_depts');
+		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_custom_fields');
+		echo $txt['shdp_install_testdata_purge_cf'], ' - <strong>', $txt['shdp_install_testdata_completed_purge'], '</strong><br />';
 		flush();
 	}
 
