@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>Arantor:Tidy_Child_Boards</id>
+	<name>Tidy Child Boards</name>
+	<version>1.0</version>
+	<type>sdplugin</type>
+	<install for="2.0">
+		<require-file name="SDPluginTidyChildBoards.english.php" destination="$languagedir" />
+		<require-file name="SDPluginTidyChildBoards.english-utf8.php" destination="$languagedir" />
+		<require-file name="SDPluginTidyChildBoards.english_british.php" destination="$languagedir" />
+		<require-file name="SDPluginTidyChildBoards.english_british-utf8.php" destination="$languagedir" />
+		<require-dir name="tidy_child_boards" destination="$sourcedir/sd_plugins_source" />
+		
+		<redirect url="?action=admin;area=helpdesk_plugins#js_feature_tally" />
+	</install>
+
+	<uninstall for="2.0">
+		<remove-file name="$languagedir/SDPluginTidyChildBoards.english.php" />
+		<remove-file name="$languagedir/SDPluginTidyChildBoards-utf8.english.php" />
+		<remove-file name="$languagedir/SDPluginTidyChildBoards_british.english.php" />
+		<remove-file name="$languagedir/SDPluginTidyChildBoards_british-utf8.english.php" />
+		<remove-dir name="$sourcedir/sd_plugins_source/tidy_child_boards" />
+	</uninstall>
+</package-info>
