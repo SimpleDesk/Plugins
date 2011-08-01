@@ -2,7 +2,7 @@
 <!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
 	<id>SimpleDeskTeam:staff_list</id>
-	<name>SimpleDesk Staff List</name>
+	<name>Staff List</name>
 	<version>1.0</version>
 	<type>sdplugin</type>
 	<install for="2.0">
