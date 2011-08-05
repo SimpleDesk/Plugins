@@ -62,7 +62,7 @@ $lorem = new LoremIpsumGenerator;
 if (SMF != 'SSI')
 	fatal_error('This script can only be run via direct link, it cannot be embedded into the forum or helpdesk itself.', false);
 
-$context['shd_delete_rules'] = array('actionlog', 'attachments', 'cf_values', 'cf', 'relationships', 'roles');
+$context['shd_delete_rules'] = array('actionlog', 'attachments', 'cannedreplies', 'cf_values', 'cf', 'prefs', 'relationships', 'roles');
 $context['page_title_html_safe'] = $txt['shdp_install_testdata_title'];
 template_header();
 
@@ -400,9 +400,10 @@ elseif (!empty($_REQUEST['go']) && $_REQUEST['go'] == 'yeah-for-delete')
 		flush();
 	}
 
+	// Purging all SD attachments
 	if (!empty($_POST['purge_attachments']))
 	{
-		// Fetch the SD attachments.
+		// Fetch the SD attachments data log.
 		$attachments = array();
 		$query = $smcFunc['db_query']('', 'SELECT id_attach FROM {db_prefix}helpdesk_attachments ORDER BY null');
 		while ($row = $smcFunc['db_fetch_row']($query))
@@ -425,6 +426,17 @@ elseif (!empty($_REQUEST['go']) && $_REQUEST['go'] == 'yeah-for-delete')
 		flush();
 	}
 
+	// Purging canned replies
+	if (!empty($_POST['purge_cannedreplies']))
+	{
+		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_cannedreplies');
+		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_cannedreplies_cats');
+		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_cannedreplies_depts');
+		echo $txt['shdp_install_testdata_purge_cannedreplies'], ' - <strong>', $txt['shdp_install_testdata_completed_purge'], '</strong><br />';
+		flush();
+	}
+
+	// Purging custom fields - only the values
 	if (!empty($_POST['purge_cf_values']))
 	{
 		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_custom_fields_values');
@@ -432,12 +444,22 @@ elseif (!empty($_REQUEST['go']) && $_REQUEST['go'] == 'yeah-for-delete')
 		flush();
 	}
 
+	// Purging custom fields - the fields themselves (including any values)
 	if (!empty($_POST['purge_cf']))
 	{
 		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_custom_fields_values');
 		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_custom_fields_depts');
 		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_custom_fields');
 		echo $txt['shdp_install_testdata_purge_cf'], ' - <strong>', $txt['shdp_install_testdata_completed_purge'], '</strong><br />';
+		flush();
+	}
+
+	// Purging user preferences
+	if (!empty($_POST['purge_prefs']))
+	{
+		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_preferences');
+		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_notify_override');
+		echo $txt['shdp_install_testdata_purge_prefs'], ' - <strong>', $txt['shdp_install_testdata_completed_purge'], '</strong><br />';
 		flush();
 	}
 
