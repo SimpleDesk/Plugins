@@ -47,6 +47,7 @@ $txt['shdp_install_testdata_warning'] = 'These options are primarily for testing
 $txt['shdp_install_testdata_nothingselected'] = 'No options were selected, nothing can be removed for that reason.';
 
 $txt['shdp_install_testdata_purge_actionlog'] = 'Remove all existing action log entries';
+$txt['shdp_install_testdata_purge_attachments'] = 'Remove all existing attachments to tickets (leaving forum attachments alone)';
 $txt['shdp_install_testdata_purge_cf'] = 'Remove ALL custom value information';
 $txt['shdp_install_testdata_purge_cf_values'] = 'Remove only the values from custom fields (leave the fields intact)';
 $txt['shdp_install_testdata_purge_roles'] = 'Remove all existing roles';

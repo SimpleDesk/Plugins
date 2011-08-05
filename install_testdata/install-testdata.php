@@ -62,7 +62,7 @@ $lorem = new LoremIpsumGenerator;
 if (SMF != 'SSI')
 	fatal_error('This script can only be run via direct link, it cannot be embedded into the forum or helpdesk itself.', false);
 
-$context['shd_delete_rules'] = array('actionlog', 'cf_values', 'cf', 'relationships', 'roles');
+$context['shd_delete_rules'] = array('actionlog', 'attachments', 'cf_values', 'cf', 'relationships', 'roles');
 $context['page_title_html_safe'] = $txt['shdp_install_testdata_title'];
 template_header();
 
@@ -397,6 +397,31 @@ elseif (!empty($_REQUEST['go']) && $_REQUEST['go'] == 'yeah-for-delete')
 	{
 		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_log_action');
 		echo $txt['shdp_install_testdata_purge_actionlog'], ' - <strong>', $txt['shdp_install_testdata_completed_purge'], '</strong><br />';
+		flush();
+	}
+
+	if (!empty($_POST['purge_attachments']))
+	{
+		// Fetch the SD attachments.
+		$attachments = array();
+		$query = $smcFunc['db_query']('', 'SELECT id_attach FROM {db_prefix}helpdesk_attachments ORDER BY null');
+		while ($row = $smcFunc['db_fetch_row']($query))
+			$attachments[] = $row[0];
+		$smcFunc['db_free_result']($query);
+
+		if (!empty($attachments))
+		{
+			$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_attachments');
+			// Now pass everything through to SMF's own.
+			require_once($sourcedir . '/ManageAttachments.php');
+			$attachmentQuery = array(
+				'attachment_type' => 0,
+				'id_msg' => 0,
+				'id_attach' => $attachments,
+			);
+			removeAttachments($attachmentQuery);
+		}
+		echo $txt['shdp_install_testdata_purge_attachments'], ' - <strong>', $txt['shdp_install_testdata_completed_purge'], '</strong><br />';
 		flush();
 	}
 
