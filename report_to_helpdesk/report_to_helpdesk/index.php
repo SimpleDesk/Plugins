@@ -57,6 +57,7 @@ function shdplugin_report_to_helpdesk()
 			'compatibility' => array(
 				'SimpleDesk 2.0 Anatidae', // should tie up with the SHD_VERSION constants
 			),
+			'acp_url' => 'action=admin;area=helpdesk_options;sa=report_to_helpdesk',
 		),
 		'includes' => array(
 			'source' => array(

@@ -30,5 +30,10 @@ $txt['report_to_mod_func'] = 'Use this function to inform the moderators and adm
 
 $txt['report_normally'] = 'Do not direct reports to the helpdesk';
 $txt['report_posts_dept'] = 'Where should reported posts end up?';
+
 $txt['report_pms_dept'] = 'Where should reported private messages end up?';
+$txt['reported_pm'] = 'Reported private message';
+$txt['reported_pm_body_no_extra'] = 'The following message, "{subject}" by {author}, was reported by {reporter}' . "\n" . '---------------------------------------' . "\n" . '{body}' . "\n" . '---------------------------------------' . "\n\n" . 'The reason given was: ' . "\n" . '{comment}';
+$txt['reported_pm_body_extra'] = 'The following message, "{subject}" by {author}, was reported by {reporter}, and had also been sent to: {recipients}' . "\n" . '---------------------------------------' . "\n" . '{body}' . "\n" . '---------------------------------------' . "\n\n" . 'The reason given was: ' . "\n" . '{comment}';
+
 ?>
