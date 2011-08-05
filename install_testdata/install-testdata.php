@@ -62,7 +62,7 @@ $lorem = new LoremIpsumGenerator;
 if (SMF != 'SSI')
 	fatal_error('This script can only be run via direct link, it cannot be embedded into the forum or helpdesk itself.', false);
 
-$context['shd_delete_rules'] = array('actionlog', 'attachments', 'cannedreplies', 'cf_values', 'cf', 'prefs', 'relationships', 'roles');
+$context['shd_delete_rules'] = array('tickets_and_replies', 'actionlog', 'attachments', 'cannedreplies', 'cf_values', 'cf', 'depts', 'prefs', 'relationships', 'roles');
 $context['page_title_html_safe'] = $txt['shdp_install_testdata_title'];
 template_header();
 
@@ -112,6 +112,14 @@ if (!$do_form)
 	{
 		checkSession();
 		validateSession();
+		// Clearing the tickets may clear other data too. Let's just add it to the list.
+		if (!empty($_POST['purge_tickets_and_replies']))
+		{
+			$_POST['purge_attachments'] = 'on';
+			$_POST['purge_cf_values'] = 'on';
+			$_POST['purge_relationships'] = 'on';
+		}
+
 		$errors_clearance = array();
 		$selected = 0;
 		foreach ($context['shd_delete_rules'] as $test)
@@ -392,6 +400,16 @@ elseif (!empty($_REQUEST['go']) && $_REQUEST['go'] == 'yeah-for-delete')
 						<span class="topslice"><span></span></span>
 						<div class="content">';
 
+	// Purging all tickets and replies
+	if (!empty($_POST['purge_tickets_and_replies']))
+	{
+		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_tickets');
+		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_ticket_replies');
+		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_log_read');
+		echo $txt['shdp_install_testdata_purge_tickets_and_replies'], ' - <strong>', $txt['shdp_install_testdata_completed_purge'], '</strong><br />';
+		flush();
+	}
+
 	// Purging the action log
 	if (!empty($_POST['purge_actionlog']))
 	{
@@ -400,7 +418,7 @@ elseif (!empty($_REQUEST['go']) && $_REQUEST['go'] == 'yeah-for-delete')
 		flush();
 	}
 
-	// Purging all SD attachments
+	// Purging all SD attachments (this will be called if all tickets and replies are being purged too!)
 	if (!empty($_POST['purge_attachments']))
 	{
 		// Fetch the SD attachments data log.
@@ -436,7 +454,7 @@ elseif (!empty($_REQUEST['go']) && $_REQUEST['go'] == 'yeah-for-delete')
 		flush();
 	}
 
-	// Purging custom fields - only the values
+	// Purging custom fields - only the values (this will be called if all tickets and replies are being purged too!)
 	if (!empty($_POST['purge_cf_values']))
 	{
 		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_custom_fields_values');
@@ -454,6 +472,44 @@ elseif (!empty($_REQUEST['go']) && $_REQUEST['go'] == 'yeah-for-delete')
 		flush();
 	}
 
+	// Purging existing departments, and then creating a new one for any new tickets.
+	if (!empty($_POST['purge_depts']))
+	{
+		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_depts');
+		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_dept_roles');
+		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_cannedreplies_depts');
+		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_custom_fields_depts');
+
+		$smcFunc['db_insert']('replace',
+			'{db_prefix}helpdesk_depts',
+			array(
+				'dept_name' => 'string', 'board_cat' => 'int', 'description' => 'string', 'before_after' => 'int', 'dept_order' => 'int', 'dept_theme' => 'int',
+			),
+			array(
+				!empty($txt['shd_helpdesk']) ? $txt['shd_helpdesk'] : 'Helpdesk', 0, '', 0, 1, 0,
+			),
+			array('id_dept')
+		);
+
+		// Move any outstanding tickets into the last department we had, which will be the last one we created. This should normally be 1 but it never hurts to check.
+		$query = $smcFunc['db_query']('', 'SELECT MAX(id_dept) FROM {db_prefix}helpdesk_depts');
+		list($new_dept) = $smcFunc['db_fetch_row']($query);
+		$smcFunc['db_free_result']($query);
+		if (!empty($new_dept))
+		{
+			$smcFunc['db_query']('', '
+				UPDATE {db_prefix}helpdesk_tickets
+				SET id_dept = {int:new_dept}',
+				array(
+					'new_dept' => $new_dept,
+				)
+			);
+		}
+
+		echo $txt['shdp_install_testdata_purge_depts'], ' - <strong>', $txt['shdp_install_testdata_completed_purge'], '</strong><br />';
+		flush();
+	}
+
 	// Purging user preferences
 	if (!empty($_POST['purge_prefs']))
 	{
@@ -463,7 +519,7 @@ elseif (!empty($_REQUEST['go']) && $_REQUEST['go'] == 'yeah-for-delete')
 		flush();
 	}
 
-	// Purging relationships
+	// Purging relationships (this will be called if all tickets and replies are being purged too!)
 	if (!empty($_POST['purge_relationships']))
 	{
 		$smcFunc['db_query']('', 'TRUNCATE {db_prefix}helpdesk_relationships');
