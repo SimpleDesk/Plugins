@@ -7,6 +7,9 @@
 	<type>sdplugin</type>
 	<install for="2.0">
 		<require-file name="SDPluginReportToHelpdesk.english.php" destination="$languagedir" />
+		<require-file name="SDPluginReportToHelpdesk.english-utf8.php" destination="$languagedir" />
+		<require-file name="SDPluginReportToHelpdesk.english_british.php" destination="$languagedir" />
+		<require-file name="SDPluginReportToHelpdesk.english_british-utf8.php" destination="$languagedir" />
 		<require-dir name="report_to_helpdesk" destination="$sourcedir/sd_plugins_source" />
 		
 		<redirect url="?action=admin;area=helpdesk_plugins#js_feature_report_to_helpdesk" />
@@ -14,6 +17,9 @@
 
 	<uninstall for="2.0">
 		<remove-file name="$languagedir/SDPluginReportToHelpdesk.english.php" />
+		<remove-file name="$languagedir/SDPluginReportToHelpdesk.english-utf8.php" />
+		<remove-file name="$languagedir/SDPluginReportToHelpdesk.english_british.php" />
+		<remove-file name="$languagedir/SDPluginReportToHelpdesk.english_british-utf8.php" />
 		<remove-dir name="$sourcedir/sd_plugins_source/report_to_helpdesk" />
 	</uninstall>
 </package-info>
